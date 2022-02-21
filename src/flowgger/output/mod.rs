@@ -5,6 +5,7 @@ mod file_output;
 mod kafka_output;
 #[cfg(feature = "tls")]
 mod tls_output;
+mod cw_logs;
 
 pub use self::debug_output::DebugOutput;
 #[cfg(feature = "file")]
@@ -13,6 +14,7 @@ pub use self::file_output::FileOutput;
 pub use self::kafka_output::KafkaOutput;
 #[cfg(feature = "tls")]
 pub use self::tls_output::TlsOutput;
+pub use self::cw_logs::CloudWatchLogsOutput;
 
 use crate::flowgger::merger::Merger;
 use std::sync::mpsc::Receiver;

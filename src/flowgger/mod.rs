@@ -70,7 +70,7 @@ use self::output::FileOutput;
 use self::output::KafkaOutput;
 #[cfg(feature = "tls")]
 use self::output::TlsOutput;
-use self::output::{DebugOutput, Output};
+use self::output::{DebugOutput, Output, CloudWatchLogsOutput};
 use std::sync::mpsc::{sync_channel, Receiver, SyncSender};
 use std::sync::{Arc, Mutex};
 
@@ -204,6 +204,7 @@ fn get_output(output_type: &str, config: &Config) -> Box<dyn Output> {
         "kafka" => get_output_kafka(config),
         "tls" | "syslog-tls" => get_output_tls(config),
         "file" => get_output_file(config),
+        "cw_logs" => Box::new(CloudWatchLogsOutput::new(config)) as Box<dyn Output>,
         _ => panic!("Invalid output type: {}", output_type),
     }
 }
